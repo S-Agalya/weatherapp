@@ -73,7 +73,14 @@ color: #333;
 text-transform: uppercase;
 text-align: center;
 }
-
+.weather{
+margin-top: 5px;
+font-size: 10px;
+color: #333;
+text-transform: uppercase;
+text-align: center;
+font-weight: bold;
+}
 .temp{
     font-weight: 500;
 }

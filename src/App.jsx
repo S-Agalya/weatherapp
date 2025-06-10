@@ -14,7 +14,7 @@ import "./App.css"
 import { useEffect, useState } from "react";
 
 
-const WeatherDetails=({icon,temp,city,country,
+const WeatherDetails=({icon,temp,city,country,weather,
   lat,log,humidity,wind})=>{
   return (
     <>
@@ -24,6 +24,7 @@ const WeatherDetails=({icon,temp,city,country,
 
     <div className="temp">{temp}°C</div>
     <div className="location">{city}</div>
+    <div className="weather">climate: {weather}</div>
     <div className="country">{country}</div>
     <div className="cord">
       <div>
@@ -84,6 +85,7 @@ function App() {
   const [cityNotFound,setCityNotFound]=useState(false)
   const [loading,setLoading]=useState(false)
   const [error,setError]=useState(null)
+  const [weather,setWeather] =useState("")
 let api_key="a863146af0daf4ccc1a68f36b18856fb"
 const [text,setText]=useState("chennai")
 const weatherIconMap={
@@ -124,12 +126,14 @@ setWind(data.wind.speed)
 setTemp(Math.floor(data.main.temp))
 setCity(data.name)
 setCountry(data.sys.country)
+const weathername=data.weather[0].main;
+setWeather(weathername)
 setLat(data.coord.lat)
 setLog(data.coord.lon)
 const weatherIconCode=data.weather[0].icon;
 setIcon(weatherIconMap[weatherIconCode] || clear)
 setCityNotFound(false)
-
+console.log(weather)
 } catch (e) {
   console.error("error occured:",e.message)
   setError("An error occured while fetching weather data.")
@@ -145,7 +149,7 @@ setText(e.target.value)
 }
 
 const handleKeyDown=(e)=>{
-if(e.Key === "Enter"){
+if(e.key === "Enter"){
   search()
 }
 }
@@ -183,7 +187,7 @@ useEffect(function(){
         </div>}
 
          { !loading && !cityNotFound && <WeatherDetails icon={icon}  
-        temp={temp} city={city} country={country} lat={lat} log={log}
+        temp={temp} city={city} country={country} weather={weather} lat={lat} log={log}
         humidity={humidity} wind={wind}/>}
         <p className="copyright">
         Designed by Agalya <span>Software Developer</span>
